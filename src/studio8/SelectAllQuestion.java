@@ -2,14 +2,36 @@ package studio8;
 
 public class SelectAllQuestion extends MultipleChoiceQuestion {
 
+	
 	public SelectAllQuestion(String prompt, String answer, String[] choices) {
 		//Hint: 1 point per choice
 		//FIXME
+		
+		super(prompt, answer, choices.length, choices);
 	}
 	
 	public int checkAnswer(String givenAnswer) {
 		//FIXME Should return partial credit (if earned)!
-		return 0;
+		
+		int full = 4;
+		
+		for(int i = 0; i < getAnswer().length(); i++) //is answer in the given answer
+		{
+			if(!givenAnswer.contains(getAnswer().charAt(i) + "") ){ //answer is not in the given answer
+				full--;
+			}
+		}
+		
+		for(int i = 0; i < givenAnswer.length(); i++) //is answer in the given answer
+		{
+			if(!getAnswer().contains(givenAnswer.charAt(i) + "") ){ //answer is not in the given answer
+				full--;
+			}
+		}
+		
+		
+		
+		return full;
 	}
 	
 	public static void main(String[] args) {
@@ -26,6 +48,10 @@ public class SelectAllQuestion extends MultipleChoiceQuestion {
 		System.out.println(selectAll.checkAnswer("4")); //1 point
 		System.out.println(selectAll.checkAnswer("124")); //1 point
 		System.out.println(selectAll.checkAnswer("24")); //0 points
+		
+		//4
+		//incorrect: -1
+		//did not select correct: -1
 		
 	}
 }
